@@ -1,0 +1,104 @@
+2025-09-11 13:57:48.877 | INFO     | __main__:<module>:343 - Starting FRA OCR System...
+2025-09-11 13:57:51.228 | INFO     | __main__:<module>:343 - Starting FRA OCR System...
+2025-09-11 13:59:40.364 | INFO     | app.core.ocr_processor:extract_text_from_image:106 - Processing image: app/static/uploads\20250911_135940_LD_1.jpg
+2025-09-11 13:59:50.044 | WARNING  | app.core.ocr_processor:_call_gemini_with_retry:211 - Gemini API call failed (attempt 1): 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 13:59:54.126 | WARNING  | app.core.ocr_processor:_call_gemini_with_retry:211 - Gemini API call failed (attempt 2): 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 13:59:59.979 | WARNING  | app.core.ocr_processor:_call_gemini_with_retry:211 - Gemini API call failed (attempt 3): 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 13:59:59.979 | ERROR    | app.core.ocr_processor:extract_text_from_image:137 - Error processing image app/static/uploads\20250911_135940_LD_1.jpg: Failed to call Gemini after 3 attempts: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 13:59:59.984 | ERROR    | __main__:upload_file:198 - OCR processing error: Failed to call Gemini after 3 attempts: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 14:01:03.290 | INFO     | app.core.ocr_processor:extract_text_from_image:106 - Processing image: app/static/uploads\20250911_140103_LD_1.jpg
+2025-09-11 14:01:12.468 | WARNING  | app.core.ocr_processor:_call_gemini_with_retry:211 - Gemini API call failed (attempt 1): 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 14:01:16.286 | WARNING  | app.core.ocr_processor:_call_gemini_with_retry:211 - Gemini API call failed (attempt 2): 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 14:01:22.084 | WARNING  | app.core.ocr_processor:_call_gemini_with_retry:211 - Gemini API call failed (attempt 3): 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 14:01:22.094 | ERROR    | app.core.ocr_processor:extract_text_from_image:137 - Error processing image app/static/uploads\20250911_140103_LD_1.jpg: Failed to call Gemini after 3 attempts: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 14:01:22.094 | ERROR    | __main__:upload_file:198 - OCR processing error: Failed to call Gemini after 3 attempts: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-11 14:03:06.992 | INFO     | __main__:<module>:343 - Starting FRA OCR System...
+2025-09-11 14:03:09.282 | INFO     | __main__:<module>:343 - Starting FRA OCR System...
+2025-09-11 14:03:21.343 | INFO     | app.core.ocr_processor:extract_text_from_image:106 - Processing image: app/static/uploads\20250911_140321_LD_1.jpg
+2025-09-11 14:03:39.215 | INFO     | app.core.ocr_processor:extract_text_from_image:133 - Successfully extracted text from app/static/uploads\20250911_140321_LD_1.jpg
+2025-09-11 14:04:43.389 | INFO     | app.core.ocr_processor:extract_text_from_image:106 - Processing image: app/static/uploads\20250911_140443_khasra.jpg
+2025-09-11 14:04:45.557 | INFO     | app.core.ocr_processor:extract_text_from_image:106 - Processing image: app/static/uploads\20250911_140445_khasra.jpg
+2025-09-11 14:04:47.250 | INFO     | app.core.ocr_processor:extract_text_from_image:106 - Processing image: app/static/uploads\20250911_140447_khasra.jpg
+2025-09-11 14:04:57.431 | INFO     | app.core.ocr_processor:extract_text_from_image:133 - Successfully extracted text from app/static/uploads\20250911_140443_khasra.jpg
+2025-09-11 14:04:59.679 | INFO     | app.core.ocr_processor:extract_text_from_image:133 - Successfully extracted text from app/static/uploads\20250911_140445_khasra.jpg
+2025-09-11 14:05:03.145 | INFO     | app.core.ocr_processor:extract_text_from_image:133 - Successfully extracted text from app/static/uploads\20250911_140447_khasra.jpg

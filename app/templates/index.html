@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRA OCR System - Forest Rights Act Document Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌳 FRA OCR System</h1>
+            <p>Forest Rights Act Document Scanner & Data Extraction Tool</p>
+        </header>
+
+        <main>
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <h2>Upload Document</h2>
+                <div class="upload-area" id="uploadArea">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p>Drop your FRA document here or click to browse</p>
+                    <p class="file-types">Supported: JPG, PNG, PDF, TIFF (Max 16MB)</p>
+                    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf,.tiff,.bmp" hidden>
+                </div>
+                
+                <div class="language-selection">
+                    <label>Document Languages:</label>
+                    <label><input type="checkbox" value="hi" checked> Hindi</label>
+                    <label><input type="checkbox" value="en" checked> English</label>
+                    <label><input type="checkbox" value="or"> Odia</label>
+                    <label><input type="checkbox" value="te"> Telugu</label>
+                </div>
+                
+                <button id="uploadBtn" class="btn btn-primary" disabled>Process Document</button>
+            </section>
+
+            <!-- Progress Section -->
+            <section id="progressSection" class="progress-section" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">Processing document...</p>
+            </section>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <h2>Extraction Results</h2>
+                
+                <div class="result-grid" id="resultGrid">
+                    <!-- Results will be populated here -->
+                </div>
+                
+                <div class="raw-text-section">
+                    <h3>Raw OCR Text</h3>
+                    <pre id="rawText"></pre>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="exportBtn" class="btn btn-secondary">Export JSON</button>
+                    <button id="newScanBtn" class="btn btn-primary">New Scan</button>
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section class="history-section">
+                <h2>Recent Documents</h2>
+                <div id="documentList" class="document-list">
+                    <!-- Document history will be loaded here -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>FRA OCR System v1.0 | Powered by Google Gemini AI</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
