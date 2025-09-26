@@ -232,17 +232,21 @@ pytest tests/
    - Select the branch (main/master)
 
 3. **Configure the service**:
-   - **Runtime**: Python 3
-   - **Build Command**: `pip install -r requirements.txt && apt-get update && apt-get install -y tesseract-ocr tesseract-ocr-hin tesseract-ocr-eng poppler-utils`
-   - **Start Command**: `gunicorn app:app --bind 0.0.0.0:$PORT`
+   - **Runtime**: Docker (since Dockerfile is present)
+   - **Dockerfile Path**: `./Dockerfile` (auto-detected)
+   - The Dockerfile handles all system dependencies (Tesseract, OpenCV libs) and Python packages
 
 4. **Set Environment Variables**:
-   - `GEMINI_API_KEY`: Your Google Gemini API key
+   - `GEMINI_API_KEY`: Your Google Gemini API key (required for AI post-processing)
+   - `PYTHONUNBUFFERED`: `1` (for logging)
+   - `TESSDATA_PREFIX`: `/usr/share/tesseract-ocr/4/tessdata` (auto-set in Dockerfile)
    - (Optional) `FLASK_ENV`: `production`
 
 5. **Deploy**: Click "Create Web Service"
 
 Your app will be live at `https://your-service-name.onrender.com`
+
+**Note**: The app uses headless OpenCV and optimized Gunicorn settings (--timeout 300s, --workers 1) for reliable OCR processing on Render's infrastructure.
 
 ### Other Deployment Options
 
