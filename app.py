@@ -30,6 +30,10 @@ import pytesseract
 import numpy as np
 import cv2
 
+# Set OpenCV for headless mode
+cv2.setUseOptimized(False)
+os.environ['DISPLAY'] = ''
+
 from app.core.field_extractor import FieldExtractor
 from app.utils.normalization import (
     normalize_name, parse_date, parse_area, normalize_state, normalize_claim_type, clean_patta_id
