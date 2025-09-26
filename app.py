@@ -149,20 +149,24 @@ def ocr_image_conf_filtered(img_bgr: np.ndarray, langs: str) -> Tuple[str, float
                                    cv2.THRESH_BINARY, 31, 2)
     rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
     # Use data API to get per-word conf
-    data = pytesseract.image_to_data(rgb, lang=langs, output_type=pytesseract.Output.DICT, config="--oem 3 --psm 6")
-    words, confs = data.get("text", []), data.get("conf", [])
-    kept, confs_kept = [], []
-    for w, c in zip(words, confs):
-        try:
-            ci = int(c)
-        except Exception:
-            continue
-        w = (w or "").strip()
-        if ci > 30 and w:
-            kept.append(w)
-            confs_kept.append(ci)
-    clean_text = " ".join(kept).strip()
-    avg_conf = (sum(confs_kept) / len(confs_kept) / 100.0) if confs_kept else 0.0
+    try:
+        data = pytesseract.image_to_data(rgb, lang=langs, output_type=pytesseract.Output.DICT, config="--oem 3 --psm 6")
+        words, confs = data.get("text", []), data.get("conf", [])
+        kept, confs_kept = [], []
+        for w, c in zip(words, confs):
+            try:
+                ci = int(c)
+            except Exception:
+                continue
+            w = (w or "").strip()
+            if ci > 30 and w:
+                kept.append(w)
+                confs_kept.append(ci)
+        clean_text = " ".join(kept).strip()
+        avg_conf = (sum(confs_kept) / len(confs_kept) / 100.0) if confs_kept else 0.0
+    except Exception as e:
+        logger.warning("Tesseract OCR failed: %s", e)
+        clean_text, avg_conf = "", 0.0
     return clean_text, avg_conf
 
 def extract_regex_fields(text: str) -> Dict[str, Any]:
@@ -432,7 +436,7 @@ def upload_file():
 
         if text_source != "pdfminer":
             try:
-                pages = pdf_to_images(str(filepath), dpi=400)
+                pages = pdf_to_images(str(filepath), dpi=300)
             except Exception as e:
                 logger.exception("pdf_to_images failed")
                 return jsonify({"error": "Failed to convert PDF to images", "detail": str(e)}), 500
