@@ -56,7 +56,12 @@ except Exception:
 # ---------- Paths ----------
 BASE_DIR = Path(__file__).resolve().parent
 
-# Tesseract uses system default in Docker/Linux
+# Tesseract config for Docker/Linux
+if 'TESSDATA_PREFIX' not in os.environ:
+    os.environ["TESSDATA_PREFIX"] = "/usr/share/tesseract-ocr/4/tessdata"
+pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+
+logger.info("Tesseract configured: cmd=%s, TESSDATA_PREFIX=%s", pytesseract.pytesseract.tesseract_cmd, os.environ.get("TESSDATA_PREFIX"))
 
 # ---------- Gemini ----------
 try:

@@ -42,4 +42,4 @@ ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/4/tessdata
 EXPOSE 5000
 
 # Run the application
-CMD ["gunicorn", "wsgi:app", "--bind", "0.0.0.0:5000", "--timeout", "300", "--workers", "1"]
+CMD gunicorn wsgi:app --bind 0.0.0.0:$PORT --timeout 300 --workers 1
