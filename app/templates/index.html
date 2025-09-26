@@ -24,16 +24,17 @@
                         <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
                     <p>Drop your FRA document here or click to browse</p>
-                    <p class="file-types">Supported: JPG, PNG, PDF, TIFF (Max 16MB)</p>
-                    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf,.tiff,.bmp" hidden>
+                    <p class="file-types">Supported: PDF (Max 32MB)</p>
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
                 </div>
                 
                 <div class="language-selection">
                     <label>Document Languages:</label>
                     <label><input type="checkbox" value="hi" checked> Hindi</label>
                     <label><input type="checkbox" value="en" checked> English</label>
-                    <label><input type="checkbox" value="or"> Odia</label>
-                    <label><input type="checkbox" value="te"> Telugu</label>
+                    <label><input type="checkbox" value="odia"> Odia</label>
+                    <label><input type="checkbox" value="telugu"> Telugu</label>
+                    <p class="file-types">Auto-detect for mixed language documents</p>
                 </div>
                 
                 <button id="uploadBtn" class="btn btn-primary" disabled>Process Document</button>
@@ -61,7 +62,7 @@
                 </div>
                 
                 <div class="action-buttons">
-                    <button id="exportBtn" class="btn btn-secondary">Export JSON</button>
+                    <button id="exportBtn" class="btn btn-secondary">Export PDF Report</button>
                     <button id="newScanBtn" class="btn btn-primary">New Scan</button>
                 </div>
             </section>

@@ -102,3 +102,10 @@ message: "API key not valid. Please pass a valid API key."
 2025-09-11 14:04:57.431 | INFO     | app.core.ocr_processor:extract_text_from_image:133 - Successfully extracted text from app/static/uploads\20250911_140443_khasra.jpg
 2025-09-11 14:04:59.679 | INFO     | app.core.ocr_processor:extract_text_from_image:133 - Successfully extracted text from app/static/uploads\20250911_140445_khasra.jpg
 2025-09-11 14:05:03.145 | INFO     | app.core.ocr_processor:extract_text_from_image:133 - Successfully extracted text from app/static/uploads\20250911_140447_khasra.jpg
+2025-09-25 21:43:44.987 | INFO     | __main__:<module>:343 - Starting FRA OCR System...
+2025-09-25 21:43:53.498 | INFO     | __main__:<module>:343 - Starting FRA OCR System...
+2025-09-25 21:44:10.818 | INFO     | app.core.ocr_processor:extract_text_from_image:106 - Processing image: app/static/uploads\20250925_214410_SAMPLE.pdf
+2025-09-25 21:44:10.956 | ERROR    | app.core.ocr_processor:extract_text_from_image:137 - Error processing image app/static/uploads\20250925_214410_SAMPLE.pdf: OpenCV(4.8.1) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
+
+2025-09-25 21:44:10.968 | ERROR    | __main__:upload_file:198 - OCR processing error: OpenCV(4.8.1) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
+

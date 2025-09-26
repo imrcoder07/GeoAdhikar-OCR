@@ -94,27 +94,23 @@ function refreshHistory() {
         info.className = 'document-info';
         const name = document.createElement('div');
         name.className = 'document-name';
-        name.textContent = doc.file_name;
+        name.textContent = doc.name;
         const meta = document.createElement('div');
         meta.className = 'document-meta';
-        meta.textContent = `Patta: ${doc.patta_id || '—'} | Holder: ${doc.holder_name || '—'} | ${doc.upload_date || ''}`;
+        meta.textContent = `ID: ${doc.id}`;
         info.appendChild(name);
         info.appendChild(meta);
 
-        const status = document.createElement('div');
-        status.className = 'document-status ' + (doc.processing_status === 'completed' ? 'status-completed' : (doc.processing_status === 'failed' ? 'status-failed' : 'status-processing'));
-        status.textContent = doc.processing_status;
-
         el.appendChild(info);
-        el.appendChild(status);
 
         el.addEventListener('click', () => {
           fetch(`/api/document/${doc.id}`)
             .then(res => res.json())
             .then(d => {
               if (!d.success) return;
-              lastDocumentId = d.document.id;
-              renderResults(d.document.structured_data, d.document.raw_text);
+              lastDocumentId = d.document.document_id;
+              const extracted = { ...d.document.regex_fields, ...d.document.gemini_fields };
+              renderResults(extracted, d.document.preview);
             });
         });
 
@@ -172,7 +168,7 @@ uploadBtn.addEventListener('click', () => {
   })
   .then(res => res.json())
   .then(data => {
-    if (!data.success) {
+    if (data.error) {
       hideProgress();
       alert('Error: ' + (data.error || 'Unknown error'));
       return;
@@ -180,7 +176,8 @@ uploadBtn.addEventListener('click', () => {
 
     showProgress(90, 'Finalizing...');
     lastDocumentId = data.document_id;
-    renderResults(data.extracted_fields, data.raw_text);
+    const extracted = { ...data.regex_fields, ...data.gemini_fields };
+    renderResults(extracted, data.preview);
     showProgress(100, 'Completed');
     setTimeout(hideProgress, 1000);
     refreshHistory();
@@ -193,7 +190,22 @@ uploadBtn.addEventListener('click', () => {
 
 exportBtn.addEventListener('click', () => {
   if (!lastDocumentId) return;
-  window.open(`/api/export/${lastDocumentId}`, '_blank');
+  showProgress(50, 'Generating PDF report...');
+  fetch(`/api/export/${lastDocumentId}/pdf`)
+    .then(res => res.json())
+    .then(data => {
+      hideProgress();
+      if (data.success) {
+        // Trigger download
+        window.open(`/api/download/${lastDocumentId}.pdf`, '_blank');
+      } else {
+        alert('Export failed: ' + (data.error || 'Unknown error'));
+      }
+    })
+    .catch(err => {
+      hideProgress();
+      alert('Export failed: ' + err.message);
+    });
 });
 
 newScanBtn.addEventListener('click', () => {
