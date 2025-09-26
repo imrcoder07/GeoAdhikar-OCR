@@ -221,7 +221,32 @@ pytest tests/
 
 ## 🚢 Production Deployment
 
-For production deployment:
+### Deploy to Render
+
+1. **Fork or clone this repository** to your GitHub account.
+
+2. **Create a new Web Service on Render**:
+   - Go to [Render Dashboard](https://dashboard.render.com)
+   - Click "New +" → "Web Service"
+   - Connect your GitHub repository
+   - Select the branch (main/master)
+
+3. **Configure the service**:
+   - **Runtime**: Python 3
+   - **Build Command**: `pip install -r requirements.txt && apt-get update && apt-get install -y tesseract-ocr tesseract-ocr-hin tesseract-ocr-eng poppler-utils`
+   - **Start Command**: `gunicorn app:app --bind 0.0.0.0:$PORT`
+
+4. **Set Environment Variables**:
+   - `GEMINI_API_KEY`: Your Google Gemini API key
+   - (Optional) `FLASK_ENV`: `production`
+
+5. **Deploy**: Click "Create Web Service"
+
+Your app will be live at `https://your-service-name.onrender.com`
+
+### Other Deployment Options
+
+For other platforms:
 
 1. Set `FLASK_ENV=production` in `.env`
 2. Use a production WSGI server:
