@@ -52,29 +52,7 @@ except Exception:
 # ---------- Paths ----------
 BASE_DIR = Path(__file__).resolve().parent
 
-# ---------- Tesseract config (Windows) ----------
-possible_tesseract_paths = [
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe",
-    r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
-    r"C:\Users\Islam\AppData\Local\Programs\Tesseract-OCR\tesseract.exe",  # Common user install path
-]
-TESSERACT_EXE = None
-for path in possible_tesseract_paths:
-    if os.path.exists(path):
-        TESSERACT_EXE = path
-        break
-if TESSERACT_EXE:
-    pytesseract.pytesseract.tesseract_cmd = TESSERACT_EXE
-    # Set TESSDATA_PREFIX to local tessdata if exists, else default
-    local_tessdata = BASE_DIR / "tessdata"
-    if local_tessdata.exists() and list(local_tessdata.glob("*.traineddata")):
-        os.environ["TESSDATA_PREFIX"] = str(local_tessdata)
-    else:
-        tessdata_dir = os.path.join(os.path.dirname(TESSERACT_EXE), "tessdata")
-        if os.path.exists(tessdata_dir):
-            os.environ["TESSDATA_PREFIX"] = tessdata_dir
-else:
-    logger.warning("Tesseract executable not found in standard paths. OCR will fail.")
+# Tesseract uses system default in Docker/Linux
 
 # ---------- Gemini ----------
 try:
@@ -97,8 +75,8 @@ MAX_CONTENT_LENGTH = 32 * 1024 * 1024  # 32 MB
 # ---------- Logging ----------
 logger.remove()
 logger.add(BASE_DIR / "logs" / "app_no_db_gemini.log", rotation="10 MB", level="DEBUG")
-logger.info("App start | tesseract=%s | TESSDATA_PREFIX=%s | pdfminer=%s | langdetect=%s",
-            TESSERACT_EXE, os.environ.get("TESSDATA_PREFIX"), PDFMINER_OK, LANGDETECT_OK)
+logger.info("App start | tesseract=system | TESSDATA_PREFIX=%s | pdfminer=%s | langdetect=%s",
+            os.environ.get("TESSDATA_PREFIX"), PDFMINER_OK, LANGDETECT_OK)
 
 # ---------- Flask ----------
 app = Flask(__name__, template_folder="app/templates", static_folder="app/static")

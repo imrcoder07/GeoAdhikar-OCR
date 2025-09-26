@@ -10,6 +10,12 @@ RUN apt-get update && apt-get install -y \
     tesseract-ocr-hin \
     tesseract-ocr-eng \
     poppler-utils \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
@@ -26,10 +32,10 @@ RUN mkdir -p data/json data/exports logs app/static/uploads
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
-ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/tessdata/
+ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/4/tessdata
 
 # Expose port
 EXPOSE 5000
 
 # Run the application
-CMD ["gunicorn", "wsgi:app", "--bind", "0.0.0.0:5000"]
+CMD ["gunicorn", "wsgi:app", "--bind", "0.0.0.0:5000", "--timeout", "300", "--workers", "1"]
