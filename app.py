@@ -56,12 +56,18 @@ except Exception:
 # ---------- Paths ----------
 BASE_DIR = Path(__file__).resolve().parent
 
-# Tesseract config for Docker/Linux
+# Tesseract config for Docker/Linux - use 'tesseract' to rely on PATH
 if 'TESSDATA_PREFIX' not in os.environ:
     os.environ["TESSDATA_PREFIX"] = "/usr/share/tesseract-ocr/4/tessdata"
-pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+pytesseract.pytesseract.tesseract_cmd = 'tesseract'
 
-logger.info("Tesseract configured: cmd=%s, TESSDATA_PREFIX=%s", pytesseract.pytesseract.tesseract_cmd, os.environ.get("TESSDATA_PREFIX"))
+# Verify Tesseract availability
+try:
+    version = pytesseract.get_tesseract_version()
+    logger.info("Tesseract version: %s", version)
+except Exception as e:
+    logger.warning("Tesseract executable not found or failed to initialize: %s. OCR will fail.", e)
+    pytesseract.pytesseract.tesseract_cmd = None
 
 # ---------- Gemini ----------
 try:
@@ -110,8 +116,8 @@ ocr_processor = None
 def allowed_file(fn: str) -> bool:
     return "." in fn and fn.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def pdf_to_images(pdf_path: str, dpi: int = 400) -> List[np.ndarray]:
-    pil_pages = convert_from_path(pdf_path, dpi=dpi)
+def pdf_to_images(pdf_path: str, dpi: int = 300) -> List[np.ndarray]:
+    pil_pages = convert_from_path(pdf_path, dpi=dpi, thread_count=1)
     return [cv2.cvtColor(np.array(p), cv2.COLOR_RGB2BGR) for p in pil_pages]
 
 def normalize_lang_list(lang_input: str) -> str:
@@ -130,6 +136,10 @@ def normalize_lang_list(lang_input: str) -> str:
 
 def ocr_image_conf_filtered(img_bgr: np.ndarray, langs: str) -> Tuple[str, float]:
     """OCR with confidence filtering to reduce garbage text."""
+    if pytesseract.pytesseract.tesseract_cmd is None:
+        logger.warning("Tesseract not available; skipping OCR.")
+        return "", 0.0
+
     gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
     gray = cv2.GaussianBlur(gray, (3, 3), 0)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
