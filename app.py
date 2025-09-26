@@ -87,6 +87,15 @@ app = Flask(__name__, template_folder="app/templates", static_folder="app/static
 app.config["UPLOAD_FOLDER"] = str(UPLOAD_FOLDER)
 app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
 
+# Error handlers to ensure JSON responses
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({"error": "Internal server error"}), 500
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"error": "Not found"}), 404
+
 # ---------- Regex helpers ----------
 # (Deprecated: Now using FieldExtractor)
 
